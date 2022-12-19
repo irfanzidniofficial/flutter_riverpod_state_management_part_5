@@ -13,7 +13,7 @@ class UserPage extends ConsumerWidget {
         title: const Text('Riverpod Modifiers'),
       ),
       body: Center(
-        child: ref.watch(userProvider).when(
+        child: ref.watch(userProvider(3)).when(
               data: (data) => Text('$data'),
               error: (error, stackTrace) => Text(error.toString()),
               loading: () => const Text('Loading'),

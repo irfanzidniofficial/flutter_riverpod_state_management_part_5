@@ -6,8 +6,11 @@ import '../entities/user.dart';
 
 class UserRepository {
   final Dio? _dio;
+  final CancelToken? _cancelToken;
 
-  UserRepository({Dio? dio}) : _dio = dio;
+  UserRepository({Dio? dio, CancelToken? cancelToken})
+      : _dio = dio,
+        _cancelToken = cancelToken;
 
   Future<User?> getUser(int id) async {
     log('Ambil data user');
@@ -16,7 +19,7 @@ class UserRepository {
 
     try {
       var response =
-          await (_dio ?? Dio()).get('https://reqres.in/api/users/$id');
+          await (_dio ?? Dio()).get('https://reqres.in/api/users/$id', cancelToken: _cancelToken);
 
       log('Kembalikan data user');
       return User.fromJson(response.data['data']);
